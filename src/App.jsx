@@ -1,42 +1,31 @@
-import axios from "axios"
-import { useState } from "react";
-
-let baseUrl = 'https://todolist-api.hexschool.io';
+import SignOut from "./components/SignOut";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import Verify from "./components/Verify";
 
 function App() {
-
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-    nickname: ''
-  })
-  const [message, setMessage] = useState('')
-
-  const signUp = async () => {
-    try {
-      let response = await axios.post(`${baseUrl}/users/sign_up`, form)
-      setMessage("註冊成功, UID: " + response.data.uid);
-    } catch (error) {
-      setMessage("失敗: " + error.response.data.message);
-    }
-  }
-
-  function updateForm(e) {
-    const { name, value } = e.target
-    setForm({...form, [name]: value}) 
-  }
-
   return (
-    <div>
-      <h2>註冊</h2>
-      <label htmlFor="email">Email</label><br />
-      <input id="email" name="email" type="text" value={form.email} placeholder="Email" onChange={updateForm} /><br />
-      <input name="password" type="password" value={form.password} placeholder="Password" onChange={updateForm}/><br />
-      <input name="nickname" type="text" value={form.nickname} placeholder="Nickname" onChange={updateForm} /><br />
-      <button type="button" onClick={signUp}>
-        Sign Up
-      </button>
-      <p>{message}</p>
+    <div className="bg-secondary-subtle p-3">
+      <div className="container">
+        <div className="row g-3">
+          <div className="col-12 col-md-6 col-lg-4">
+            <div className="row flex-column g-3">
+              <div className="col"><SignUp /></div>
+              <div className="col"><SignIn /></div>
+              <div className="col"><Verify /></div>
+              <div className="col"><SignOut /></div>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-lg-8">
+            <div className="card h-100">
+              <div className="card-header">
+                <span className="fs-3 fw-bold">TodoList</span>
+              </div>
+              <div className="card-body">todo</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
